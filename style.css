@@ -1,5 +1,5 @@
 /* Custom styles if needed */
-/* Add Order Button */
+/* Add Order Button 
 button[type="button"].btn-primary.me-2 {
   position: relative;
   top: 0;
@@ -10,7 +10,7 @@ button[type="button"].btn-primary.me-2 {
   width: 100%;
 }
 
-/* Add Order Modal */
+/* Add Order Modal 
 #addOrderModal .modal-body {
   display: flex;
   flex-direction: column;
@@ -29,3 +29,4 @@ button[type="button"].btn-primary.me-2 {
 #addOrderModal button[type="submit"].btn-primary {
   width: 100%;
 }
+*/
