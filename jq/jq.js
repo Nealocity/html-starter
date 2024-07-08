@@ -11,7 +11,7 @@ $(document).ready(function() {
         newRow += '<td><input type="text" class="orderIdInput" style="color:grey" value="' + nextOrderId + '" onfocus="if(this.value==\'OrderId\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\'' + nextOrderId + '\'}" /></td>';
         newRow += '<td><input type="text" class="orderValueInput" style="color:grey" value="Value" onfocus="if(this.value==\'Value\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\'Value\'}" /></td>';
         newRow += '<td><input type="text" class="orderQuantityInput" style="color:grey" value="Quantity" onfocus="if(this.value==\'Quantity\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\'Quantity\'}" /></td>';
-        newRow += '<td><button class="addOrderButton btn btn-sm btn-primary">Add</button><button class="deleteOrderButton btn btn-sm btn-danger">Delete</button></td>';
+        newRow += '<td><button class="action-col addOrderButton btn btn-sm btn-primary">Add</button><button class="action-col deleteOrderButton btn btn-sm btn-danger">Delete</button></td>';
         newRow += '</tr>';
 
         $('.table tbody').prepend(newRow);
@@ -33,7 +33,7 @@ $(document).ready(function() {
     });
 
 //Implement "Save" feature. Once clicked. all the data should be stored in the "Local" storage of the browser. The data should be stored in JSON format
-    $(document).on('click', '#saveOrderButton', function() {
+    $(document).on('click', '#saveFormButton', function() {
         var orders = [];
         $('.table tbody tr').each(function(){
             var orderId = $(this).find('td:first').text();
@@ -73,5 +73,26 @@ function filterOrders(sliderValue) {
         }
     });
 }
-
-
+$(document).on('click', '.editOrderButton', function() {
+    $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
+        var currentVal = $(element).find('label').text();
+        var newVal = $(element).find('input').length > 0 ? $(element).find('input').val() : '';
+        if(newVal == '') {
+            newVal = currentVal;
+        }
+        $(element).html('<input type="text" class="edit-input" value="'+newVal+'" onfocus="if(this.value==\''+currentVal+'\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\''+currentVal+'\'}" />');
+    });
+    $(this).html('Save');
+    $(this).removeClass('editOrderButton').addClass('saveOrderButton');
+    $(this).on('click', function() {
+        $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
+            var newVal = $(element).find('input').val();
+            if(newVal == '') {
+                newVal = $(element).find('label').text();
+            }
+            $(element).html('<label>'+newVal+'</label>');
+        });
+        $(this).html('Edit');
+        $(this).removeClass('saveOrderButton').addClass('editOrderButton');
+    });
+});

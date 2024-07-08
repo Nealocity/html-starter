@@ -33,7 +33,7 @@ $(document).ready(function() {
     });
 
 //Implement "Save" feature. Once clicked. all the data should be stored in the "Local" storage of the browser. The data should be stored in JSON format
-    $(document).on('click', '#saveOrderButton', function() {
+    $(document).on('click', '#saveFormButton', function() {
         var orders = [];
         $('.table tbody tr').each(function(){
             var orderId = $(this).find('td:first').text();
