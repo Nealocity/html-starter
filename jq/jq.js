@@ -74,29 +74,21 @@ function filterOrders(sliderValue) {
     });
 }
 
-// edit order
+// // edit order
 $(document).on('click', '.editOrderButton', function() {
     $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
         var currentVal = $(element).find('label').text();
-        var newVal = $(element).find('input').length > 0 ? $(element).find('input').val() : '';
-        if(newVal == '') {
-            newVal = currentVal;
-        }
-        $(element).html('<input type="text" class="edit-input" value="'+newVal+'" onfocus="if(this.value==\''+currentVal+'\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\''+currentVal+'\'}" />');
+        $(element).html('<input type="text" class="edit-input" value="'+currentVal+'" />');
     });
     $(this).html('Save');
     $(this).removeClass('editOrderButton').addClass('saveOrderButton');
-    $(this).on('click', function() {
-        console.log('Save clicked');
-        $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
-            var newVal = $(element).find('input').val();
-            console.log(newVal); // print newVal
-            if(newVal == '') {
-                newVal = $(element).find('label').text();
-            }
-            $(element).html('<label>'+newVal+'</label>');
-        });
-        $(this).html('Edit');
-        $(this).removeClass('saveOrderButton').addClass('editOrderButton');
+});
+
+$(document).on('click', '.saveOrderButton', function() {
+    $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
+        var newVal = $(element).find('input').val();
+        $(element).html('<label>'+newVal+'</label>');
     });
+    $(this).html('Edit');
+    $(this).removeClass('saveOrderButton').addClass('editOrderButton');
 });
