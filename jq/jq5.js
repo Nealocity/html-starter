@@ -93,7 +93,7 @@ $(document).on('click', '.saveOrderButton', function() {
     $(this).removeClass('saveOrderButton').addClass('editOrderButton');
 });
 
-
+//Delete Order
 $(document).on('click', '.deleteOrderButton', function() {
     $(this).closest('tr').remove();
     var orderId = $(this).closest('tr').find('td:first').text();
