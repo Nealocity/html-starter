@@ -11,7 +11,7 @@ $(document).ready(function() {
         newRow += '<td><input type="text" class="orderIdInput" style="color:grey" value="' + nextOrderId + '" onfocus="if(this.value==\'OrderId\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\'' + nextOrderId + '\'}" /></td>';
         newRow += '<td><input type="text" class="orderValueInput" style="color:grey" value="Value" onfocus="if(this.value==\'Value\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\'Value\'}" /></td>';
         newRow += '<td><input type="text" class="orderQuantityInput" style="color:grey" value="Quantity" onfocus="if(this.value==\'Quantity\'){this.value=\'\'}" onblur="if(this.value==\'\'){this.value=\'Quantity\'}" /></td>';
-        newRow += '<td><button class="action-col addOrderButton btn btn-sm btn-primary">Add</button><button class="action-col deleteOrderButton btn btn-sm btn-danger">Delete</button></td>';
+        newRow += '<td class="action-col"><button class="action-col addOrderButton btn btn-sm btn-primary">Add</button><button class="action-col deleteOrderButton btn btn-sm btn-danger">Delete</button></td>';
         newRow += '</tr>';
 
         $('.table tbody').prepend(newRow);
@@ -26,7 +26,7 @@ $(document).ready(function() {
         newRow += '<td><label>' + orderId + '</label></td>';
         newRow += '<td><label>' + (orderValue.indexOf('$') === -1 ? '$' + orderValue : orderValue) + '</label></td>';
         newRow += '<td><label>' + orderQuantity + '</label></td>';
-        newRow += '<td><button class="editOrderButton btn btn-sm btn-primary">Edit</button><button class="deleteOrderButton btn btn-sm btn-danger">Delete</button></td>';
+        newRow += '<td class="action-col"><button class="editOrderButton btn btn-sm btn-primary">Edit</button><button class="deleteOrderButton btn btn-sm btn-danger">Delete</button></td>';
         newRow += '</tr>';
 
         $(this).closest('tr').replaceWith(newRow);
@@ -73,6 +73,8 @@ function filterOrders(sliderValue) {
         }
     });
 }
+
+// edit order
 $(document).on('click', '.editOrderButton', function() {
     $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
         var currentVal = $(element).find('label').text();
@@ -85,8 +87,10 @@ $(document).on('click', '.editOrderButton', function() {
     $(this).html('Save');
     $(this).removeClass('editOrderButton').addClass('saveOrderButton');
     $(this).on('click', function() {
+        console.log('Save clicked');
         $(this).closest('tr').find('td:not(.action-col)').each(function(index, element) {
             var newVal = $(element).find('input').val();
+            console.log(newVal); // print newVal
             if(newVal == '') {
                 newVal = $(element).find('label').text();
             }
